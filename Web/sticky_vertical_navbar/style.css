@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 8em;
+    background-color: lightgray;
+}
+
+.verticalLogo {
+    background-image: url("/img/logo.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    width: 6em;
+    background-color: red;
+    padding-right: 8em;
+}
+
+.verticalCatBox {
+    display: flex;
+    justify-content: center;
+    width: 8em;
+    height: 100em;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.verticalCat {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    
+    background-color: wheat;
+}

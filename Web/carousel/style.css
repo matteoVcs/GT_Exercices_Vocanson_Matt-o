@@ -1,0 +1,90 @@
+.glob {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 800px;
+    margin: auto;
+}
+
+.carousel {
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    flex-direction: row;
+    width: 100em;
+    height: 100em;
+}
+
+.buttons {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.slide1 {
+    float: left;
+    width: 100em;
+    height: 100em;
+    background-color: black;
+}
+
+.slide1 {
+    float: left;
+    width: 100em;
+    height: 100em;
+    background-color: wheat;
+}
+
+.slide1 {
+    float: left;
+    width: 100em;
+    height: 100em;
+    background-color: blue;
+}
+
+.leftArrow {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    animation: gauche;
+}
+
+.rightArrow {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    animation: droite;
+}
+
+@keyframes droite {
+    0% {
+        transform: translateX(0);
+    }
+    33% {
+        transform: translateX(-800);
+    }
+    66% {
+        transform: translateX(-1600);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes gauche {
+    0% {
+        transform: translateX(0);
+    }
+    33% {
+        transform: translateX(800);
+    }
+    66% {
+        transform: translateX(1600);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
