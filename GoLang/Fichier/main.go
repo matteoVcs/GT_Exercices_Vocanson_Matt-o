@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -53,6 +54,7 @@ func (g *Global) GetData() {
 }
 
 func (g *Global) WriteData() {
+	input := bufio.NewReader(os.Stdin)
 	var tmp string
 	var text string
 	fmt.Println("\033[H\033[2J")
@@ -68,14 +70,13 @@ func (g *Global) WriteData() {
 		return
 	}
 	fmt.Println("Que rajouter dans le fichier: ")
-	fmt.Scanln(&text)
+	text, _ = input.ReadString('\n')
 
 	_, err = file.WriteString(text)
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("\033[H\033[2J")
-	fmt.Println("\n", text)
 	fmt.Println("votre texte a bien été ajouté au fichier:", tmp)
 }
 
@@ -103,9 +104,9 @@ func (g *Global) RemoveData() {
 }
 
 func (g *Global) ReplaceData() {
+	input := bufio.NewReader(os.Stdin)
 	var tmp string
 	var text string
-	var aze int
 	fmt.Println("\033[H\033[2J")
 	fmt.Print("dans quel fichier ecrire (\"cancel\" pour annuler): ")
 	fmt.Scan(&tmp)
@@ -119,15 +120,13 @@ func (g *Global) ReplaceData() {
 		return
 	}
 	fmt.Println("Que rajouter dans le fichier: ")
-	aze, _ = fmt.Scan(&text)
+	text, _ = input.ReadString('\n')
 
 	_, err = file.WriteString(text)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("\033[H\033[2J")
-	fmt.Println("\n", text)
-	fmt.Println(aze)
 	fmt.Println("votre texte a bien été remplacé")
 
 }
