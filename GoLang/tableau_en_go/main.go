@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"net/http"
 	"text/template"
@@ -14,11 +15,11 @@ type Global struct {
 
 func main() {
 	var g Global
+	fmt.Println("server is running on port 8080")
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", fs))
 	http.HandleFunc("/", g.Page)
 	http.ListenAndServe(":8080", nil)
-
 }
 
 func (g *Global) InitStruct(r *http.Request, w http.ResponseWriter) []int {

@@ -9,6 +9,7 @@ import (
 )
 
 type Global struct {
+	Fichier   string
 	UserInput int
 	Loop      bool
 	Data      []byte
@@ -17,8 +18,13 @@ type Global struct {
 
 func main() {
 	var g Global
+	var tmp bool
+
+	for !tmp {
+		tmp = g.GetFichier()
+	}
 	for !g.Loop {
-		fmt.Println("Que faire ?\n1. Récupérer tout le texte contenu dans un .txt\n2. Ajouter du texte dans ce fichier\n3.Supprimer tout le contenu du fichier\n4. Remplacer le contenu\n5. Quitter")
+		fmt.Println("Que faire ?\n1. Récupérer tout le texte du fichier\n2. Ajouter du texte dans ce fichier\n3.Supprimer tout le contenu du fichier\n4. Remplacer le contenu\n5. Changer de fichier\n6. Quitter")
 		g.UserInput = GetUserInput()
 		switch g.UserInput {
 		case 1:
@@ -30,6 +36,8 @@ func main() {
 		case 4:
 			g.ReplaceData()
 		case 5:
+			g.GetFichier()
+		case 6:
 			fmt.Println("\033[H\033[2J")
 			fmt.Println("Exit successful")
 			g.Loop = true
@@ -37,20 +45,29 @@ func main() {
 	}
 }
 
-func (g *Global) GetData() {
+func (g *Global) GetFichier() bool {
 	var tmp string
 	fmt.Println("\033[H\033[2J")
-	fmt.Print("de quel fichier voulez vous récupérer le contenu (\"cancel\" pour annuler): ")
+	fmt.Print("quel fichier voulez vous modifier: ")
 	fmt.Scan(&tmp)
-	if tmp == "cancel" {
-		return
+	file, err := os.OpenFile(tmp, os.O_WRONLY|os.O_APPEND, 0600)
+	defer file.Close()
+	if err != nil {
+		fmt.Println(err)
+		return false
 	}
-	g.Data, g.Err = ioutil.ReadFile(tmp)
+	g.Fichier = tmp
+	return true
+}
+
+func (g *Global) GetData() {
+	fmt.Println("\033[H\033[2J")
+	g.Data, g.Err = ioutil.ReadFile(g.Fichier)
 	if g.Err != nil {
 		fmt.Println(g.Err)
 	}
 	fmt.Println("\033[H\033[2J")
-	fmt.Println(string(g.Data))
+	fmt.Println("le fichier contient:", string(g.Data))
 }
 
 func (g *Global) WriteData() {
@@ -58,12 +75,7 @@ func (g *Global) WriteData() {
 	var tmp string
 	var text string
 	fmt.Println("\033[H\033[2J")
-	fmt.Print("dans quel fichier ecrire (\"cancel\" pour annuler): ")
-	fmt.Scan(&tmp)
-	if tmp == "cancel" {
-		return
-	}
-	file, err := os.OpenFile(tmp, os.O_WRONLY|os.O_APPEND, 0600)
+	file, err := os.OpenFile(g.Fichier, os.O_WRONLY|os.O_APPEND, 0600)
 	defer file.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -83,12 +95,7 @@ func (g *Global) WriteData() {
 func (g *Global) RemoveData() {
 	var tmp string
 	fmt.Println("\033[H\033[2J")
-	fmt.Print("de quel fichier voulez-vous supprimer le contenu ? (\"cancel\" pour annuler): ")
-	fmt.Scan(&tmp)
-	if tmp == "cancel" {
-		return
-	}
-	file, err := os.OpenFile(tmp, os.O_WRONLY|os.O_TRUNC, 0600)
+	file, err := os.OpenFile(g.Fichier, os.O_WRONLY|os.O_TRUNC, 0600)
 	defer file.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -105,15 +112,9 @@ func (g *Global) RemoveData() {
 
 func (g *Global) ReplaceData() {
 	input := bufio.NewReader(os.Stdin)
-	var tmp string
 	var text string
 	fmt.Println("\033[H\033[2J")
-	fmt.Print("dans quel fichier ecrire (\"cancel\" pour annuler): ")
-	fmt.Scan(&tmp)
-	if tmp == "cancel" {
-		return
-	}
-	file, err := os.OpenFile(tmp, os.O_WRONLY|os.O_TRUNC, 0600)
+	file, err := os.OpenFile(g.Fichier, os.O_WRONLY|os.O_TRUNC, 0600)
 	defer file.Close()
 	if err != nil {
 		fmt.Println(err)
@@ -136,8 +137,8 @@ func GetUserInput() int {
 	var ret int
 	for !loop {
 		ret = strToNumber()
-		if ret < 1 || ret > 5 {
-			fmt.Print("veuillez choisir un nombre de 1 a 5: ")
+		if ret < 1 || ret > 6 {
+			fmt.Print("veuillez choisir un nombre de 1 a 6: ")
 		} else {
 			loop = true
 		}
