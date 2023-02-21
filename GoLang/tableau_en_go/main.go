@@ -26,7 +26,7 @@ func (g *Global) InitStruct(r *http.Request, w http.ResponseWriter) []int {
 	var clear []int
 	g.Contenu = clear
 	var max int = 100
-	var min int = 1
+	var min int = 3
 	rand.Seed(time.Now().UnixNano())
 	g.N = rand.Intn(max-min) + min
 	for i := 0; i < g.N; i++ {
