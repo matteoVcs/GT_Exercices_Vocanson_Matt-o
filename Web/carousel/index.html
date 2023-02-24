@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glob">
-        <div class="carousel">
-            <div class="slides">
-                <div class="slide1"></div>
-                <div class="slide2"></div>
-                <div class="slide3"></div>
-            </div>
-        </div>
-        <div class="buttons">
-            <button class="leftArrow"></button>
-            <button class="rightArrow"></button>
-        </div>
+  <div class="carousel-wrapper">
+    <span id="item-1"></span>
+    <span id="item-2"></span>
+    <span id="item-3"></span>
+    <span id="item-4"></span>
+    <span id="item-5"></span>
+    <div class="carousel-item item-1">
+      <a href="#item-5" class="arrow-prev arrow"></a>
+      <a href="#item-2" class="arrow-next arrow"></a>
     </div>
+
+    <div class="carousel-item item-2">
+      <a href="#item-1" class="arrow-prev arrow"></a>
+      <a href="#item-3" class="arrow-next arrow"></a>
+    </div>
+
+    <div class="carousel-item item-3">
+      <a href="#item-2" class="arrow-prev arrow"></a>
+      <a href="#item-4" class="arrow-next arrow"></a>
+    </div>
+
+    <div class="carousel-item item-4">
+      <a href="#item-3" class="arrow-prev arrow"></a>
+      <a href="#item-5" class="arrow-next arrow"></a>
+    </div>
+
+    <div class="carousel-item item-5">
+      <a href="#item-4" class="arrow-prev arrow"></a>
+      <a href="#item-1" class="arrow-next arrow"></a>
+    </div>
+
+  </div>
 </body>
 </html>

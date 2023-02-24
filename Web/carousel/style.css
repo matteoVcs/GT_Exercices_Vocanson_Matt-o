@@ -1,90 +1,71 @@
-.glob {
-    display: flex;
-    flex-direction: column;
-    width: 800px;
-    height: 800px;
-    margin: auto;
+.carousel-wrapper {
+  height: 400px;
+  position: relative;
+  width: 800px;
+  display: block;
+  margin: 50px auto ;
+  border: 2px solid black;
 }
 
-.carousel {
-    overflow: hidden;
+.carousel-item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 25px 50px;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+.arrow{
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 12px;
+}
+.arrow-prev {
+  left: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+
+}
+.arrow-next {
+  right: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
 }
 
-.slides {
-    display: flex;
-    flex-direction: row;
-    width: 100em;
-    height: 100em;
+[id^= "item"] {
+  display: none;
+}
+.item-1 {
+  z-index: 2;
+  opacity: 1;
+  background-color: blue;
+}
+.item-2 {
+  background-color: green;
+}
+.item-3 {
+  background-color: yellow;
+}
+.item-4 {
+  background-color: red;
+}
+.item-5 {
+  background-color: black;
 }
 
-.buttons {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    flex-direction: row;
+*:target ~ .item-1{
+  opacity: 0;
 }
+#item-1:target ~ .item-1 {
+  opacity: 1;
 
-.slide1 {
-    float: left;
-    width: 100em;
-    height: 100em;
-    background-color: black;
 }
-
-.slide1 {
-    float: left;
-    width: 100em;
-    height: 100em;
-    background-color: wheat;
-}
-
-.slide1 {
-    float: left;
-    width: 100em;
-    height: 100em;
-    background-color: blue;
-}
-
-.leftArrow {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    animation: gauche;
-}
-
-.rightArrow {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    animation: droite;
-}
-
-@keyframes droite {
-    0% {
-        transform: translateX(0);
-    }
-    33% {
-        transform: translateX(-800);
-    }
-    66% {
-        transform: translateX(-1600);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes gauche {
-    0% {
-        transform: translateX(0);
-    }
-    33% {
-        transform: translateX(800);
-    }
-    66% {
-        transform: translateX(1600);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
+#item-2:target ~ .item-2, #item-3:target ~ .item-3, #item-4:target ~ .item-4, #item-5:target ~ .item-5 {
+  z-index: 3;
+  opacity: 1;
+} 
